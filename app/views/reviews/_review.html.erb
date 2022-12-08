@@ -1,0 +1,17 @@
+<div id="<%= dom_id review %>">
+  <p>
+    <strong>Rating:</strong>
+    <%= review.rating %>
+  </p>
+
+  <p>
+    <strong>Comment:</strong>
+    <%= review.comment %>
+  </p>
+
+  <p>
+    <strong>User:</strong>
+    <%= review.user.try(:email) %>
+  </p>
+
+</div>

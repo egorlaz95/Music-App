@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+    .nav.navbar-nav {
+        display: flex;
+    }
+    .container-fluid{
+        display: flex;
+    }
+  </style>
+</head>
+<body>
+<nav class="navbar navbar-inverse" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <%= link_to "God I Love Music", root_path, class: "navbar-brand" %>
+        </div>
+            <ul class="nav navbar-nav">
+                <% if user_signed_in? %>
+                    <p style="color:#ffffff">You are <%= current_user.role %></p>
+                    <li><%= link_to "New Album", new_album_path%></li>
+                    <li><%= link_to "Show Artists", singers_path %></li>
+                    <li><%= link_to "Add Artist", new_singer_path %></li>
+                    <li><%= link_to "Account", edit_user_registration_path %></li>
+                    <li><%= link_to "Top Ranked", top_ranked_albums_path %></li>
+                <% else %>
+                    <li><%= link_to "Sign Up", new_user_registration_path, class: "active" %></li>
+                    <li><%= link_to "Sign In", new_user_session_path, class: "active" %></li>
+                <% end %>
+            </ul>
+            <%= form_tag search_search_path, method: :get, class: "navbar-form navbar-right", role: "search" do %>
+                <p>
+                    <%= text_field_tag :search, params[:search], class: "form-control" %>
+                    <%= submit_tag "Search", name: nil, class: "btn btn-default" %>
+                </p>
+            <% end %>
+    </div>
+</nav>
+</body>

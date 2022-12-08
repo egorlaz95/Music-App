@@ -1,0 +1,37 @@
+<div id="<%= dom_id album %>">
+  <p>
+    <strong>Title:</strong>
+    <%= album.title %>
+  </p>
+
+  <p>
+    <strong>Artist:</strong>
+    <%= album.artist %>
+  </p>
+
+  <p>
+    <strong>Language:</strong>
+    <%= album.language %>
+  </p>
+
+  <p>
+    <strong>Released:</strong>
+    <%= album.released %>
+  </p>
+
+  <p>
+    <strong>Genre:</strong>
+    <%= album.genre %>
+  </p>
+
+  <p>
+    <strong>Album length:</strong>
+    <%= album.album_length %>
+  </p>
+
+  <p>
+    <strong>Cover:</strong>
+    <%= image_tag(album.image, style:"width:300px; height:300px") %>
+  </p>
+
+</div>

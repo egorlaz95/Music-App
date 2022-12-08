@@ -1,0 +1,31 @@
+<style>
+.nice1{
+  font-weight: bold;
+}
+
+</style>
+<%if !user_signed_in? %>
+  <div class="jumbotron">
+    <h1>Самый лучший сайт на свете</h1>
+    <p>Чтобы пользоваться этим сайтом, нужно войти в свой аккаунт или зарегистрироваться</p>
+    <p><%= link_to "Войти", new_user_registration_path, class: "btn btn-primary btn-lg"%></p>
+  </div>
+<%end%>
+<h1>Current Albums</h1>
+<div class="row">
+  <% @albums.limit(12).each do |album|%>
+    <div class="col-sm-6 col-md-3">
+      <div class="thumbnail", id="bord">
+        <%= link_to (image_tag album.image,style:"width:250px; height:250px", class: 'image'), album %>
+        <%= album.avg_rating(album) %>
+      </div>
+      <div class="nice1">
+        <%= link_to (album.title), album, style: 'color:#000000'%>
+      </div>
+      <div>
+        <%= link_to (album.artist), singer_path(album.singer_id) , style: 'color:#000000'%>
+      </div>
+    </div>
+  <%end%>
+</div>
+<h1 style="font-size:2vw">Чтобы найти нужный Вам альбом, воспользуйтесь поиском</h1>

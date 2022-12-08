@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+
+<%= image_tag @singer.image %>
+<div>
+  <%= link_to "Edit this singer", edit_singer_path(@singer) %> |
+  <%= link_to "Back to singers", singers_path %>
+
+  <%= button_to "Destroy this singer", @singer, method: :delete %>
+</div>

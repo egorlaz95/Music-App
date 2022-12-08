@@ -1,0 +1,32 @@
+<h1>Top 5 Best Albums</h1>
+<% @ar.take(5).each do |album|%>
+    <div class="clearfix">
+        <div class="column menu">
+            <%= link_to (image_tag album[0].image,style:"width:250px; height:250px", class: 'image'), album[0] %>
+        </div>
+        <div class="column content">
+            <div class="right">
+                <h1 style="font-size:5vw"><%= link_to (album[0].title), album[0], style: 'color:#000000'%></h1>
+                <h1 style="text-align: right"><%= "##{@ar.index(album) + 1}" %></h1>
+            </div>
+            <h2><%= link_to (album[0].artist), album[0], style: 'color:#000000'%></h2>
+            <p style="font-size:2vw" class="glyphicon glyphicon-star-empty"><%= album[1] %></p>
+        </div>
+    </div>
+<%end%>
+<h1>Top 5 Worst Albums</h1>
+<% @ar.last(5).reverse_each do |album|%>
+    <div class="clearfix">
+        <div class="column menu">
+            <%= link_to (image_tag album[0].image,style:"width:250px; height:250px", class: 'image'), album[0] %>
+        </div>
+        <div class="column content">
+            <div class="right">
+                <h1 style="font-size:5vw"><%= link_to (album[0].title), album[0], style: 'color:#000000'%></h1>
+                <h1 style="text-align: right"><%= "##{@ar.index(album) + 1}" %></h1>
+            </div>
+            <h2><%= link_to (album[0].artist), album[0], style: 'color:#000000'%></h2>
+            <p style="font-size:2vw" class="glyphicon glyphicon-star-empty"><%= album[1] %></p>
+        </div>
+    </div>
+<%end%>
