@@ -10,13 +10,8 @@ module MusicApp
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
-
-    # Configuration for the application, engines, and railties goes here.
-    #
-    # These settings can be overridden in specific environments using the files
-    # in config/environments, which are processed later.
-    #
-    # config.time_zone = "Central Time (US & Canada)"
-    # config.eager_load_paths << Rails.root.join("extras")
+    RSpotify::authenticate("7f90ecb5287a48cdb71445769c071b6c", "5c98ea2ad11d4101a10e8f3b2c51ee01")
+    config.i18n.available_locales = [:en, :ru]
+    config.i18n.default_locale = :en
   end
 end

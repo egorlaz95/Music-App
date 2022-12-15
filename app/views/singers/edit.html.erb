@@ -1,10 +1,10 @@
-<h1>Editing singer</h1>
+<h1 style="color:white;position: relative;left: 35%;"><%= t "editing_singer" %></h1>
 
 <%= render "form", singer: @singer %>
 
 <br>
 
 <div>
-  <%= link_to "Show this singer", @singer %> |
-  <%= link_to "Back to singers", singers_path %>
+  <%= link_to (t "showw"), @singer %> |
+  <%= link_to (t "backk"), singers_path %>
 </div>

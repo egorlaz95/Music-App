@@ -2,80 +2,87 @@
   <div class="panel-body">
     <div class="row">
       <div class="col-md-4">
-        <%= image_tag @album.image, style:"width:400px; height:400px" %>
-        <h2>Average Rating:</h2>
-        <% if @reviews.length == 0 %>
-          <p>There's no reviews yet</p>
-        <% elsif  @avg_review >= 7.5%>
-          <div class="green">
-            <h2><%= @avg_review %></h2>
-          </div>
-        <% elsif  @avg_review < 7.5 and  @avg_review >= 4.5%>
-          <div class="yellow">
-            <h2><%=  @avg_review %></h2>
-          </div>
-        <% elsif  @avg_review < 4.5%>
-          <div class="red">
-            <h2><%=  @avg_review %></h2>
-          </div>
-        <%end%>
-        <em><%= "#{@reviews.length} reviews"%></em>
+        <%= image_tag @album.cover, style:"width:400px; height:400px" %>
+        <iframe style="border-radius:12px" 
+          src=<%= @link %> width="115%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
+        </iframe>
+      </div>
+      
+      <div class="col-md-7 col-md-offset-1">
         <div class="table-responsive">
           <table class="table">
+            <div class="nice1">
+              <h1><%= link_to (@album.title), @album, style: 'color:#000000' %></h1>
+              <h3><%= link_to (@album.artist), singer_path(@album.singer_id), style: 'color:#000000' %></h3>
+            </div>
             <tbody>
               <tr>
-                <td><strong>Title:</strong></td>
-                <td><%= @album.title %></td>
+                <td><strong><%= t "label" %></strong></td>
+                <td><%= @alb.label %></td>
               </tr>
               <tr>
-                <td><strong>Artist:</strong></td>
-                <td><%= @album.artist %></td>
+                <td><strong><%= t "released" %></strong></td>
+                <td><%= @alb.release_date %></td>
               </tr>
               <tr>
-                <td><strong>Language:</strong></td>
-                <td><%= @album.language %></td>
+                <td><strong><%= t "total_tracks" %></strong></td>
+                <td><%= @alb.total_tracks %></td>
               </tr>
               <tr>
-                <td><strong>Released:</strong></td>
-                <td><%= @album.released %></td>
-              </tr>
-              <tr>
-                <td><strong>Genre:</strong></td>
-                <td><%= @album.genre %></td>
-              </tr>
-              <tr>
-                <td><strong>Album Length:</strong></td>
-                <td><%= @album.album_length %></td>
+                <td><strong><%= t "album_popularity" %></strong></td>
+                <td><%= "#{@alb.popularity}%" %></td>
               </tr>
             </tbody>
           </table>
-          <%= link_to "Write a Review", new_album_review_path(@album)%>
-        </div>
-      </div>
-      <div class="col-md-7 col-md-offset-1">
-        <h1 class="review_title"><%= @album.title%></h1>
-        <p><%= @album.artist%></p>
-        <% if @reviews.blank?%>
-          <h3>No reviews</h3>
-          <%= link_to "Write Review", new_album_review_path(@album), class:"btn btn-danger"%>
-        <% else %>
-          <% @reviews.each do |review| %>
-            <div class="reviews", id="lin">
-              <% review.rating.to_i.times do  %>
-                <span class="glyphicon glyphicon-star-empty"></span>
-              <% end %>
-              <b><%= review.rating %></b>
-              <p><%= review.comment%></p>
+          <h2><%= t "Average_Rating" %></h2>
+          <% if @reviews.length == 0 %>
+            <p><%= t "There_is_no_reviews_yet" %></p>
+          <% elsif  @avg_review >= 7.5%>
+            <div class="green">
+              <h2><%= @avg_review %></h2>
             </div>
-          <% end %>
-        <% end %>
+          <% elsif  @avg_review < 7.5 and  @avg_review >= 4.5%>
+            <div class="yellow">
+              <h2><%=  @avg_review %></h2>
+            </div>
+          <% elsif  @avg_review < 4.5%>
+            <div class="red">
+              <h2><%=  @avg_review %></h2>
+            </div>
+          <%end%>
+          <h1><%= t "reviews"%></h1>
+  <%= link_to (t "write_review"), new_album_review_path(@album), class:"btn btn-danger"%>
+  <% if @reviews.blank?%>
+      <h3><%= t "no_reviews"%></h3>
+  <% else %>
+      <em><%= @reviews.length%> <%= t "reviewws"%></em>
+      <% @reviews.each do |review| %>
+         <div class="reviews">
+            <em><%= review.user.email %></em>
+            <% review.rating.to_i.times do  %>
+              <span class="glyphicon glyphicon-star-empty"></span>
+            <% end %>
+            <% if current_user.admin? %>
+              <div class="rights"><%= button_to (t "delete_review"), album_review_path(@album, review), method: :delete %></div>
+            <% end %>
+            <b><%= review.rating %> </b>
+            <p><%= review.comment%></p>
+          </div>
+      <% end %>
+  <% end %>
+        </div>
       </div>
     </div>
   </div>
+  <div>
+  <% if current_user.admin? %>
+    <%= link_to (t "edit"), edit_album_path(@album) %> |
+    <%= link_to (t "back"), albums_path %>
+    <%= button_to (t "destroy"), @album, method: :delete %>
+  <% else %>
+  <%= link_to (t "back"), albums_path %>
+  <% end %>
 </div>
-<div>
-  <%= link_to "Edit this album", edit_album_path(@album) %> |
-  <%= link_to "Back to albums", albums_path %>
 
-  <%= button_to "Destroy this album", @album, method: :delete %>
 </div>
+

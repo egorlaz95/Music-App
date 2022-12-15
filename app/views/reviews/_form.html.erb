@@ -10,18 +10,17 @@
       </ul>
     </div>
   <% end %>
-
-  <div>
-    <%= form.label :rating,"Ваша оценка(от 1 до 10)", style: "display: block" %>
-    <%= form.number_field :rating, min: 1, max: 10 %>
-  </div>
-
-  <div>
-    <%= form.label :comment, style: "display: block" %>
-    <%= form.text_area :comment %>
-  </div>
-
-  <div>
-    <%= form.submit %>
+  <div class="wrapper">
+    <form action="#">
+          <div class="h5 font-weight-bold mb-3"><%= form.label :rating,(t "your_mark")%></div>
+          <div class="form-group d-flex align-items-center">
+            <%= form.number_field :rating, min: 1, max: 10, class: "form-control" %>
+          </div>
+          <div class="h5 font-weight-bold mb-3"><%= form.label :comment %></div>
+        <div class="form-group d-flex align-items-center">
+          <%= form.text_area :comment, class: "form-control" %>
+        </div>         
+          <%= form.submit (t "create_review"), class: "btn btn-primary mb-3"%>                    
+    </form>
   </div>
 <% end %>

@@ -20,7 +20,7 @@ class ReviewsController < ApplicationController
     @review.album_id = @album.id
     respond_to do |format|
       if @review.save
-        format.html { redirect_to album_url(@album), notice: "Review was successfully created." }
+        format.html { redirect_to album_url(@album), notice: (t "review_create") }
         format.json { render :show, status: :created, location: @album }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -47,7 +47,7 @@ class ReviewsController < ApplicationController
     @review.destroy
 
     respond_to do |format|
-      format.html { redirect_to reviews_url, notice: "Review was successfully destroyed." }
+      format.html { redirect_to album_url(@album), notice: (t "review_destroy") }
       format.json { head :no_content }
     end
   end

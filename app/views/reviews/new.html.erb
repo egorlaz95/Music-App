@@ -1,9 +1,9 @@
-<h1>New review</h1>
+<h1 style="color:white;position: relative;left: 35%;"><%= t "new_review" %></h1>
 
 <%= render "form", review: @review %>
 
 <br>
 
 <div>
-  <%= link_to "Back", album_path(@album) %>
+  <%= link_to (t "bak"), album_path(@album) %>
 </div>

@@ -1,11 +1,8 @@
+require 'rspotify'
 class AlbumsController < ApplicationController
   before_action :set_album, only: %i[ show edit update destroy ]
-  before_action :authenticate_user!, except: [:index, :show]
-
-
-  def artist
-    @albums = Album.where(artist: "Платина")
-  end
+  before_action :authenticate_user!, except: [:index]
+  before_action :is_admin?, except: [:index, :show, :top_ranked, :worst_ranked]
 
   def top_ranked
     @albums = Album.all
@@ -16,6 +13,17 @@ class AlbumsController < ApplicationController
       @ar.push(ax) if album.avg_rating(album) > 0.0
     end
     @ar = @ar.sort_by{|a| -a[1]}
+  end
+
+  def worst_ranked
+    @albums = Album.all
+    @ar = []
+    @albums.each do |album|
+      ax = []
+      ax.push(album, album.avg_rating(album)) 
+      @ar.push(ax) if album.avg_rating(album) > 0.0
+    end
+    @ar = @ar.sort_by{|a| a[1]}
   end
 
   def index
@@ -30,6 +38,8 @@ class AlbumsController < ApplicationController
     else
       @avg_review = @reviews.average(:rating).round(2)
     end
+    @alb = RSpotify::Album.search(@album.title).first
+    @link = "https://open.spotify.com/embed/album/#{@alb.id}?utm_source=generator"
   end
 
   # GET /albums/new
@@ -44,16 +54,21 @@ class AlbumsController < ApplicationController
   # POST /albums or /albums.json
   def create
     @album = current_user.albums.build(album_params)
-    @singer = Singer.find_by(name: @album.artist)
-    @album.singer_id = @singer.id
-    respond_to do |format|
-      if @album.save
-        format.html { redirect_to album_url(@album), notice: "Album was successfully created." }
-        format.json { render :show, status: :created, location: @album }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @album.errors, status: :unprocessable_entity }
+    if Singer.find_by(name: @album.artist)
+      @singer = Singer.find_by(name: @album.artist)
+      @album.singer_id = @singer.id
+      @album.cover = RSpotify::Album.search(@album.title).first.images.first["url"] 
+      respond_to do |format|
+        if @album.save
+          format.html { redirect_to album_url(@album), notice: (t "album_create") }
+          format.json { render :show, status: :created, location: @album }
+        else
+          format.html { render :new, status: :unprocessable_entity }
+          format.json { render json: @album.errors, status: :unprocessable_entity }
+        end
       end
+    else
+      redirect_to root_path, notice: (t "album_error")
     end
   end
 
@@ -61,7 +76,7 @@ class AlbumsController < ApplicationController
   def update
     respond_to do |format|
       if @album.update(album_params)
-        format.html { redirect_to album_url(@album), notice: "Album was successfully updated." }
+        format.html { redirect_to album_url(@album), notice: (t "album_update") }
         format.json { render :show, status: :ok, location: @album }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -75,7 +90,7 @@ class AlbumsController < ApplicationController
     @album.destroy
 
     respond_to do |format|
-      format.html { redirect_to albums_url, notice: "Album was successfully destroyed." }
+      format.html { redirect_to albums_url, notice: (t "album_destroy") }
       format.json { head :no_content }
     end
   end
@@ -88,6 +103,6 @@ class AlbumsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def album_params
-      params.require(:album).permit(:title, :artist, :language, :released, :genre, :album_length, :image)
+      params.require(:album).permit(:title, :artist, :cover)
     end
 end

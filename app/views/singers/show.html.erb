@@ -1,10 +1,71 @@
-<p style="color: green"><%= notice %></p>
+<div class="panel panel-default">
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-4">
+        <%= image_tag @singer.avatar, style:"width:400px; height:400px" %> 
+        <iframe style="border-radius:12px" src=<%= @thisis %> width="115%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
 
+      </div>
+      <div class="col-md-7 col-md-offset-1">
+        <div class="table-responsive">
+          <table class="table">
+            <h1><%= link_to (@singer.name), @singer, style: 'color:#000000' %></h1>
+            <tbody>
+              <tr>
+                <td><strong><%= t 'most_popular' %></strong></td>
+                <td><iframe style="border-radius:12px" src=<%= @mostpop %> width="100%" height="100" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe></td>
+              </tr>
+              <tr>
+                <td><strong><%= t 'popularity' %></strong></td>
+                <td><%= @sin.popularity %></td>
+              </tr>  
+              <tr>
+                <td><strong><%= t 'genres' %></strong></td>
+                <td><% (@sin.genres).each do |genre|%>
+                  <%=genre%> 
+                <% end %>
+                </td>
+              </tr> 
+            </tbody>
+          </table>
+          <p><%= @singer.biography %></p>
+          <h1><strong><%= t 'average_rating'%></strong></h1>
+          <% if @avr == 0 %>
+            <p>There's no reviews yet</p>
+          <% elsif  @avr >= 7.5%>
+            <div class="green">
+              <h2><%= @avr %></h2>
+            </div>
+          <% elsif  @avr < 7.5 and  @avr >= 4.5%>
+            <div class="yellow">
+              <h2><%=  @avr %></h2>
+            </div>
+          <% elsif  @avr < 4.5%>
+            <div class="red">
+              <h2><%=  @avr %></h2>
+            </div>
+          <%end%>
+        </div>
+      </div>
+    </div>
 
-<%= image_tag @singer.image %>
-<div>
-  <%= link_to "Edit this singer", edit_singer_path(@singer) %> |
-  <%= link_to "Back to singers", singers_path %>
-
-  <%= button_to "Destroy this singer", @singer, method: :delete %>
+      <h1><%= t "singer_albums",  singer: @singer.name %></h1>
+      <% @albums.each do |album| %>
+        <div class="col-sm-6 col-md-3">
+          <%= link_to (image_tag album.cover, style:"width:250px; height:250px", class: 'image'), album %>
+          <div class="nice1">
+            <%= link_to (album.title), album, style: 'color:#000000'%>
+          </div>
+        </div>
+      <% end %>
+  </div>
+  <div>
+  <% if current_user.admin? %>
+    <%= link_to (t "editt"), edit_singer_path(@singer) %> |
+    <%= link_to (t "backk"), singers_path %>
+    <%= button_to (t "destroyy"), @singer, method: :delete %>
+  <% else %>
+    <%= link_to (t "backk"), singers_path %>
+  <% end %>
+</div>
 </div>

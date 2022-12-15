@@ -1,31 +1,32 @@
-<style>
-.nice1{
-  font-weight: bold;
-}
 
-</style>
 <%if !user_signed_in? %>
   <div class="jumbotron">
-    <h1>Самый лучший сайт на свете</h1>
-    <p>Чтобы пользоваться этим сайтом, нужно войти в свой аккаунт или зарегистрироваться</p>
-    <p><%= link_to "Войти", new_user_registration_path, class: "btn btn-primary btn-lg"%></p>
+    <h1><%= t "the_best"%></h1>
+    <p><%= t "need" %></p>
+    <p><%= link_to (t "log_in"), new_user_registration_path, class: "btn btn-primary btn-lg"%></p>
   </div>
 <%end%>
-<h1>Current Albums</h1>
+<h1 style="color:white"><b><%= t 'current_albums'%></b></h1>
 <div class="row">
-  <% @albums.limit(12).each do |album|%>
+  <% @albums.each do |album|%>
     <div class="col-sm-6 col-md-3">
-      <div class="thumbnail", id="bord">
-        <%= link_to (image_tag album.image,style:"width:250px; height:250px", class: 'image'), album %>
-        <%= album.avg_rating(album) %>
-      </div>
-      <div class="nice1">
-        <%= link_to (album.title), album, style: 'color:#000000'%>
-      </div>
-      <div>
-        <%= link_to (album.artist), singer_path(album.singer_id) , style: 'color:#000000'%>
+      <div class="thumbnail containers", id="bord">
+          <%= link_to ( image_tag album.cover,style:"width:250px; height:250px", class: 'image'), album %>
+          <div class="middle">
+            <div class="text">
+              <span class="glyphicon glyphicon-star-empty"></span>
+              <%= album.avg_rating(album) %>
+            </div>
+          </div>
+        <div class="nice1">
+          <%= link_to (album.title), album, style: 'color:#000000'%>
+        </div>
+        <div>
+          <%= link_to (album.artist), singer_path(album.singer_id) , style: 'color:#000000'%>
+        </div>
       </div>
     </div>
   <%end%>
 </div>
-<h1 style="font-size:2vw">Чтобы найти нужный Вам альбом, воспользуйтесь поиском</h1>
+<%= link_to 'EN', root_path(locale: :en), class: "navbar-brand"%>
+<%= link_to 'RU', root_path(locale: :ru), class: "navbar-brand"%>

@@ -11,32 +11,13 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
-  </div>
-
-  <div>
-    <%= form.label :born, style: "display: block" %>
-    <%= form.text_field :born %>
-  </div>
-
-  <div>
-    <%= form.label :biography, style: "display: block" %>
-    <%= form.text_area :biography %>
-  </div>
-
-  <div>
-    <%= form.label :genres, style: "display: block" %>
-    <%= form.text_field :genres %>
-  </div>
-
-  <div>
-    <%= form.label :image%>
-    <%= form.file_field :image %>
-  </div>
-
-  <div>
-    <%= form.submit %>
+  <div class="wrapper">
+    <form action="#">
+        <div class="h5 font-weight-bold mb-3"><%= form.label :name%></div>
+        <div class="form-group d-flex align-items-center">
+          <%= form.text_field :name, class: "form-control" %>
+        </div>    
+          <%= form.submit (t "create_singer"), class: "btn btn-primary mb-3"%>                    
+    </form>
   </div>
 <% end %>
