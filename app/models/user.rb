@@ -6,8 +6,9 @@ class User < ApplicationRecord
   has_many :albums
   has_many :reviews, dependent: :destroy
   has_many :singers
-  enum role: [:user, :admin]
-  after_initialize :set_default_role, :if => :new_record?
+  has_many :favourites
+  enum role: %i[user admin]
+  after_initialize :set_default_role, if: :new_record?
 
   def set_default_role
     self.role ||= :user

@@ -2,7 +2,7 @@
   <div class="panel-body">
     <div class="row">
       <div class="col-md-4">
-        <%= image_tag @singer.avatar, style:"width:400px; height:400px" %> 
+        <%= image_tag @singer.avatar, style:"width:400px; height:400px; margin-bottom: 30px" %> 
         <iframe style="border-radius:12px" src=<%= @thisis %> width="115%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
 
       </div>
@@ -17,7 +17,7 @@
               </tr>
               <tr>
                 <td><strong><%= t 'popularity' %></strong></td>
-                <td><%= @sin.popularity %></td>
+                <td><%= "#{@sin.popularity}%" %></td>
               </tr>  
               <tr>
                 <td><strong><%= t 'genres' %></strong></td>
@@ -28,10 +28,9 @@
               </tr> 
             </tbody>
           </table>
-          <p><%= @singer.biography %></p>
           <h1><strong><%= t 'average_rating'%></strong></h1>
-          <% if @avr == 0 %>
-            <p>There's no reviews yet</p>
+          <% if @a.length == 0 %>
+            <p><%= t 'no_reviews'%></p>
           <% elsif  @avr >= 7.5%>
             <div class="green">
               <h2><%= @avr %></h2>

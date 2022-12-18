@@ -1,0 +1,4 @@
+<h1 style="color:white">Favourites</h1>
+<% current_user.favourites.each do |favourite| %>
+    <%= link_to (image_tag favourite.album.cover,style:"width:250px; height:250px", class: 'image'), favourite.album %>
+<% end %>

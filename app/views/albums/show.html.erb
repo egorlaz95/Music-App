@@ -2,7 +2,7 @@
   <div class="panel-body">
     <div class="row">
       <div class="col-md-4">
-        <%= image_tag @album.cover, style:"width:400px; height:400px" %>
+        <%= image_tag @album.cover, style:"width:400px; height:400px; margin-bottom: 30px" %>
         <iframe style="border-radius:12px" 
           src=<%= @link %> width="115%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
         </iframe>
@@ -34,6 +34,7 @@
               </tr>
             </tbody>
           </table>
+          <%= link_to favourite_text, favourites_view_path(album: @album), class:"btn btn-danger"%>
           <h2><%= t "Average_Rating" %></h2>
           <% if @reviews.length == 0 %>
             <p><%= t "There_is_no_reviews_yet" %></p>
@@ -52,6 +53,7 @@
           <%end%>
           <h1><%= t "reviews"%></h1>
   <%= link_to (t "write_review"), new_album_review_path(@album), class:"btn btn-danger"%>
+
   <% if @reviews.blank?%>
       <h3><%= t "no_reviews"%></h3>
   <% else %>
@@ -76,7 +78,6 @@
   </div>
   <div>
   <% if current_user.admin? %>
-    <%= link_to (t "edit"), edit_album_path(@album) %> |
     <%= link_to (t "back"), albums_path %>
     <%= button_to (t "destroy"), @album, method: :delete %>
   <% else %>

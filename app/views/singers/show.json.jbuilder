@@ -1,1 +1,1 @@
-json.partial! "singers/singer", singer: @singer
+json.partial! 'singers/singer', singer: @singer
