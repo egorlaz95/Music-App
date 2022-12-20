@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_17_180728) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_18_143340) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -57,6 +57,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_17_180728) do
     t.integer "user_id"
     t.integer "singer_id"
     t.string "cover"
+    t.string "label"
+    t.string "release_date"
+    t.integer "total_tracks"
+    t.integer "popularity"
+    t.string "link"
   end
 
   create_table "favourites", force: :cascade do |t|
@@ -83,6 +88,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_17_180728) do
     t.datetime "updated_at", null: false
     t.integer "user_id"
     t.string "avatar"
+    t.integer "popularity"
+    t.text "genres"
+    t.string "thisis"
+    t.string "mostpop"
   end
 
   create_table "users", force: :cascade do |t|

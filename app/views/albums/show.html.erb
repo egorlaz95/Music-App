@@ -4,7 +4,7 @@
       <div class="col-md-4">
         <%= image_tag @album.cover, style:"width:400px; height:400px; margin-bottom: 30px" %>
         <iframe style="border-radius:12px" 
-          src=<%= @link %> width="115%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
+          src=<%= @album.link %> width="115%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
         </iframe>
       </div>
       
@@ -18,19 +18,19 @@
             <tbody>
               <tr>
                 <td><strong><%= t "label" %></strong></td>
-                <td><%= @alb.label %></td>
+                <td><%= @album.label %></td>
               </tr>
               <tr>
                 <td><strong><%= t "released" %></strong></td>
-                <td><%= @alb.release_date %></td>
+                <td><%= @album.release_date %></td>
               </tr>
               <tr>
                 <td><strong><%= t "total_tracks" %></strong></td>
-                <td><%= @alb.total_tracks %></td>
+                <td><%= @album.total_tracks %></td>
               </tr>
               <tr>
                 <td><strong><%= t "album_popularity" %></strong></td>
-                <td><%= "#{@alb.popularity}%" %></td>
+                <td><%= "#{@album.popularity}%" %></td>
               </tr>
             </tbody>
           </table>

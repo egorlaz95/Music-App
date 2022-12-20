@@ -1,0 +1,8 @@
+<% if current_user.favourites.all.count > 0 %>
+    <h1 style="color:white"><%= t "maybe" %></h1>
+    <% @b.each do |b|%>
+        <iframe style="border-radius:12px" src=<%= b %> width="100%" height="250" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+    <% end %>
+<% else %>
+    <h1 style="color:white"><%= t "nothing_found"%></h1>
+<% end %>

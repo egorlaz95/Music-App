@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-md-4">
         <%= image_tag @singer.avatar, style:"width:400px; height:400px; margin-bottom: 30px" %> 
-        <iframe style="border-radius:12px" src=<%= @thisis %> width="115%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+        <iframe style="border-radius:12px" src=<%= @singer.thisis %> width="115%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
 
       </div>
       <div class="col-md-7 col-md-offset-1">
@@ -13,15 +13,15 @@
             <tbody>
               <tr>
                 <td><strong><%= t 'most_popular' %></strong></td>
-                <td><iframe style="border-radius:12px" src=<%= @mostpop %> width="100%" height="100" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe></td>
+                <td><iframe style="border-radius:12px" src=<%= @singer.mostpop %> width="100%" height="100" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe></td>
               </tr>
               <tr>
                 <td><strong><%= t 'popularity' %></strong></td>
-                <td><%= "#{@sin.popularity}%" %></td>
+                <td><%= "#{@singer.popularity}%" %></td>
               </tr>  
               <tr>
                 <td><strong><%= t 'genres' %></strong></td>
-                <td><% (@sin.genres).each do |genre|%>
+                <td><% (@singer.genres).each do |genre|%>
                   <%=genre%> 
                 <% end %>
                 </td>

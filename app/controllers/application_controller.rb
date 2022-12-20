@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
   end
   
   def favourite_text
-    return @favourite_exists ? "UnFavourite" : "Favourite"
+    return @favourite_exists ? (t "add_unfavourite") : (t "add_favourite")
   end
 
   helper_method :favourite_text

@@ -15,10 +15,6 @@ class SingersController < ApplicationController
       @a.push(album.avg_rating(album)) if album.avg_rating(album) > 0
     end
     @avr = @a.inject(0.0) { |sum, el| sum + el } / @a.size
-    @sin = RSpotify::Artist.search(@singer.name).first
-    @playlist = RSpotify::Playlist.search("This is #{@singer.name}").first
-    @thisis = "https://open.spotify.com/embed/playlist/#{@playlist.id}?utm_source=generator"
-    @mostpop = "https://open.spotify.com/embed/track/#{@sin.top_tracks(:US).first.id}?utm_source=generator"
   end
 
   # GET /singers/new
@@ -33,8 +29,14 @@ class SingersController < ApplicationController
   def create
     @singer = Singer.new(singer_params)
     @singer.user_id = current_user.id
+    sin = RSpotify::Artist.search(@singer.name).first
     @singer.avatar = RSpotify::Artist.search(@singer.name).first.images.first['url'] if @singer.name != 'Kanye West'
     @singer.avatar = 'Снимок экрана от 2022-12-14 17-16-05.png' if @singer.name == 'Kanye West'
+    @singer.popularity = RSpotify::Artist.search(@singer.name).first.popularity
+    @singer.genres = RSpotify::Artist.search(@singer.name).first.genres
+    playlist = RSpotify::Playlist.search("This is #{@singer.name}").first
+    @singer.thisis = "https://open.spotify.com/embed/playlist/#{playlist.id}?utm_source=generator"
+    @singer.mostpop = "https://open.spotify.com/embed/track/#{sin.top_tracks(:US).first.id}?utm_source=generator"
     respond_to do |format|
       if @singer.save
         format.html { redirect_to singer_url(@singer), notice: (t 'singer_create') }

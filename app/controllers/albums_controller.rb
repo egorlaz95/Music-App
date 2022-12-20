@@ -38,8 +38,6 @@ class AlbumsController < ApplicationController
                   else
                     @reviews.average(:rating).round(2)
                   end
-    @alb = RSpotify::Album.search(@album.title).first
-    @link = "https://open.spotify.com/embed/album/#{@alb.id}?utm_source=generator"
     @favourite_exists = Favourite.where(album: @album, user: current_user) == [] ? false : true
   end
 
@@ -57,7 +55,12 @@ class AlbumsController < ApplicationController
     if Singer.find_by(name: @album.artist)
       @singer = Singer.find_by(name: @album.artist)
       @album.singer_id = @singer.id
+      @album.label = RSpotify::Album.search(@album.title).first.label
+      @album.release_date = RSpotify::Album.search(@album.title).first.release_date
+      @album.total_tracks = RSpotify::Album.search(@album.title).first.total_tracks
+      @album.popularity = RSpotify::Album.search(@album.title).first.popularity
       @album.cover = RSpotify::Album.search(@album.title).first.images.first['url']
+      @album.link = "https://open.spotify.com/embed/album/#{RSpotify::Album.search(@album.title).first.id}?utm_source=generator"
       respond_to do |format|
         if @album.save
           format.html { redirect_to album_url(@album), notice: (t 'album_create') }

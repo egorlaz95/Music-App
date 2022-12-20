@@ -1,4 +1,16 @@
-<h1 style="color:white">Favourites</h1>
-<% current_user.favourites.each do |favourite| %>
-    <%= link_to (image_tag favourite.album.cover,style:"width:250px; height:250px", class: 'image'), favourite.album %>
-<% end %>
+<h1 style="color:white"><%= t "favourite" %></h1>
+<div class="row">
+  <% current_user.favourites.each do |favourite| %>
+    <div class="col-sm-6 col-md-3">
+      <div class="thumbnail", id="bord">
+        <%= link_to (image_tag favourite.album.cover,style:"width:250px; height:250px", class: 'image'), favourite.album %>
+        <div class="nice1">
+          <%= link_to (favourite.album.title), favourite.album, style: 'color:#000000'%>
+        </div>
+        <div>
+          <%= link_to (favourite.album.artist), favourite.album, style: 'color:#000000'%>
+        </div>
+      </div>
+    </div>
+  <%end%>
+</div>

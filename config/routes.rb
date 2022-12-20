@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'recommendations/view'
   get 'favourites/view'
   scope '(:locale)', locale: /#{I18n.available_locales.join("|")}/ do
     resources :singers
